@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -21,15 +21,47 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
-
+import axios from 'axios';
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    
+    dispatch({ type: 'FETCH_USER' })
+    getToken();
   }, [dispatch]);
 
+
+  
+  
+  useEffect(() => {
+    getToken();;
+  }, []);
+  
+function getToken(){
+      axios.get('/token')
+      .then((res) => {
+        
+        console.log('res',res);
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.error('error on gettoken', err);
+      })
+    }
+      /*axios.get('/spotify')
+        .then((res) => {
+          setPlaylist(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }, []); */
+  
   return (
+    <>
+  
     <Router>
       <div>
         <Nav />
@@ -110,6 +142,9 @@ function App() {
         <Footer />
       </div>
     </Router>
+    
+    
+  </>
   );
 }
 
