@@ -91,7 +91,7 @@ axios.post('https://accounts.spotify.com/api/token', {
   })
 })
 */
-const getToken = () => {
+/*const getToken = () => {
   return axios({
       method: 'post',
       url:'https://accounts.spotify.com/api/token',
@@ -111,5 +111,48 @@ const getToken = () => {
      console.log('whooooo', err)
   });
 };
+*/
 
-module.exports = getToken;
+/*router.get('/', (req,res) => {
+  console.log('req.body', req.body)
+  axios.post('https://accounts.spotify.com/api/token', {},
+  { header: {'Content-Type': 'application/x-www-form-urlencoded'}, 
+  auth:{
+'username':'f15a7924574297940778aa68f2fabc',
+'password':'a7465ffbca9a49d988a87d4a035e0'
+  },
+  data:
+      'grant_type=client_credentials'
+
+})
+    .then((response)=>{
+      res.send(response.data.access_token)
+      console.log('result', response)
+      return response.data.access_token
+    })
+    .catch((err) => {
+        console.log('error on token', err)
+        res.sendStatus(500)
+    })
+   
+})
+*/
+router.get('/', (req,res) => {
+axios({
+  method: 'post',
+  url:'https://accounts.spotify.com/api/token',
+  auth: {
+      username: 'f0f15a7924574297940778aa68f2fabc',
+      password: 'a7465ffbca9a49d988a87d4a035e0dcc',
+  },
+  data: 'grant_type=client_credentials',
+  headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}).then(function(response) {
+  console.log(response.data, 'api response');
+}).catch(err =>{
+  console.log('whoops', err)
+})
+})
+module.exports = router;
