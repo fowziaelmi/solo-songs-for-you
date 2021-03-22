@@ -155,7 +155,7 @@ axios({
 token = response.data.access_token
 console.log('here',token)
 res.redirect('/getBearer')
-  
+  return token;
 }).catch(err =>{
   console.log('whoops', err)
 })
@@ -166,9 +166,10 @@ router.get('/', function(req, res) {
 
   axios({
     method: 'get',
-    url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
-    //url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
-    headers: {
+    //url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
+   // url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
+    url: "https://api.spotify.com/v1/search?q=chill%2C%20pop&type=playlist&limit=1",
+   headers: {
       Authorization: 'Bearer ' + token
     }
   }).then((response) => {

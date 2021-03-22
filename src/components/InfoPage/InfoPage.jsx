@@ -8,7 +8,8 @@ import axios from 'axios';
 function InfoPage() {
   const [songUri, setSongUri] = useState('');
 useEffect(() => {
-  getToken();;
+  getToken();
+  getPlaylist();
 }, []);
 
 function getToken(){
@@ -17,22 +18,25 @@ function getToken(){
     
     console.log('res',res);
     console.log(res)
-    axios.get('/getBearer')
-    .then(res => {
-      console.log('res', res.data)
-      console.log(res.data.id)
-      setSongUri(res.data.id)
-      
-    }).catch(err => {
-      console.log('err', err)
-    })
+   
   })
   .catch((err) => {
     console.error('error on gettoken', err);
   })
-
 }
-let newUri = "https://open.spotify.com/embed/track/" + songUri
+  function getPlaylist(){
+    getToken();
+  axios.get('/getBearer')
+  .then(res => {
+    console.log('res for bearer', res.data)
+    console.log(res.data.playlists.items[0].id)
+    setSongUri(res.data.playlists.items[0].id)
+    
+  }).catch(err => {
+    console.log('err', err)
+  })
+}
+let newUri = "https://open.spotify.com/embed/playlist/" + songUri
 console.log('newUri', newUri)
   return (
     <div>
