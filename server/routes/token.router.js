@@ -166,13 +166,15 @@ router.get('/', function(req, res) {
 
   axios({
     method: 'get',
-    url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
+    url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
+    //url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
     headers: {
       Authorization: 'Bearer ' + token
     }
   }).then((response) => {
     
-    console.log('here is the response',response.data)
+    console.log('here is the response',response.data
+    )
   }).catch(err => {
     console.log('error on get', err)
     console.log('token', token)
