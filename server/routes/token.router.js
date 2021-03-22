@@ -172,7 +172,7 @@ router.get('/', function(req, res) {
       Authorization: 'Bearer ' + token
     }
   }).then((response) => {
-    
+    res.send(response.data)
     console.log('here is the response',response.data
     )
   }).catch(err => {

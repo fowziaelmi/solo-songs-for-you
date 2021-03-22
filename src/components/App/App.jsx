@@ -28,34 +28,14 @@ function App() {
   useEffect(() => {
     
     dispatch({ type: 'FETCH_USER' })
-    getToken();
+    
   }, [dispatch]);
 
 
   
   
-  useEffect(() => {
-    getToken();;
-  }, []);
   
-function getToken(){
-      axios.post('/token')
-      .then((res) => {
-        
-        console.log('res',res);
-        console.log(res)
-        axios.get('/getBearer')
-        .then(res => {
-          console.log('res', res.data)
-        }).catch(err => {
-          console.log('err', err)
-        })
-      })
-      .catch((err) => {
-        console.error('error on gettoken', err);
-      })
-    
-    }
+
       /*axios.get('/spotify')
         .then((res) => {
           setPlaylist(res.data);
