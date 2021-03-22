@@ -5,7 +5,7 @@ import axios from 'axios';
 // It doesn't have local state
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
-function InfoPage() {
+function NowPlaying() {
   const [songUri, setSongUri] = useState('');
 useEffect(() => {
   getToken();
@@ -40,11 +40,11 @@ let newUri = "https://open.spotify.com/embed/playlist/" + songUri
 console.log('newUri', newUri)
   return (
     <div>
-      <p>Info Page</p>
+      <p>Now Playing Page</p>
       <p><iframe src= {newUri} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></p>
     </div>
   );
 }
 
-export default InfoPage;
+export default NowPlaying;
 //<div className="container"></div>
