@@ -3,6 +3,7 @@ const axios = require('axios');
 const { response } = require('express');
 
 const router = new express.Router();
+const token = require('./token.router')
 /*
 let encodedPayload = new Buffer(payload).toString("base64");
 axios.post('https://accounts.spotify.com/api/token',{
@@ -21,8 +22,6 @@ axios.post('https://accounts.spotify.com/api/token',{
 })
 */
 // Make post route to get token 
-let credentials = 'f15a7924574297940778aa68f2fabc' + ':' + 'a7465ffbca9a49d988a87d4a035e0';
-let basicAuth = 'Basic ' + credentials;
 
 
 /*

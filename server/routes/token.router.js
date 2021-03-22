@@ -3,6 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const axios =require('axios');
 const { response } = require('express');
+let token = ''
 /**
  * GET route template
  */
@@ -137,7 +138,7 @@ axios.post('https://accounts.spotify.com/api/token', {
    
 })
 */
-router.get('/', (req,res) => {
+router.post('/', (req,res) => {
 axios({
   method: 'post',
   url:'https://accounts.spotify.com/api/token',
@@ -149,10 +150,51 @@ axios({
   headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
   }
-}).then(function(response) {
-  console.log(response.data, 'api response');
+}).then(response => {
+  console.log(response.data, 'api response', response.data.access_token);
+token = response.data.access_token
+console.log('here',token)
+res.redirect('/getBearer')
+  
 }).catch(err =>{
   console.log('whoops', err)
 })
+
 })
+
+router.get('/', function(req, res) {
+
+  axios({
+    method: 'get',
+    url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then((response) => {
+    
+    console.log('here is the response',response.data)
+  }).catch(err => {
+    console.log('error on get', err)
+    console.log('token', token)
+  })
+});
+
+
+//const token = response.data.access_token
+//console.log(token, 'token')
+/*const token = response.data.access_token
+const AuthStr = `Bearer ${token}`; 
+
+router.get('/', (req, res) => {
+  axios.get('https://api.spotify.com/v1/browse/categories/party/playlists?', { headers: { 'Authorization': AuthStr } })
+    .then((result) => {
+      res.send(result.data);
+    })
+    .catch((error) => {
+      console.log('spotify request failed', error);
+      res.sendStatus(500);
+    })
+})
+*/
+
 module.exports = router;

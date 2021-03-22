@@ -39,15 +39,22 @@ function App() {
   }, []);
   
 function getToken(){
-      axios.get('/token')
+      axios.post('/token')
       .then((res) => {
         
         console.log('res',res);
-        console.log(res.data)
+        console.log(res)
+        axios.get('/getBearer')
+        .then(res => {
+          console.log('res', res.data)
+        }).catch(err => {
+          console.log('err', err)
+        })
       })
       .catch((err) => {
         console.error('error on gettoken', err);
       })
+    
     }
       /*axios.get('/spotify')
         .then((res) => {
