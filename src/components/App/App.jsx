@@ -19,7 +19,7 @@ import NowPlaying from '../NowPlaying/NowPlaying';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import FavoritePage from '../FavoritePage/FavoritePage'
 
 import './App.css';
 import axios from 'axios';
@@ -105,12 +105,21 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows RegisterPage at "/registration"
             exact
+            path="/favorites"
+            
+          >
+            <FavoritePage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows RegisterPage at "/registration"
+            exact
             path="/registration"
             authRedirect="/user"
           >
             <RegisterPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/user"

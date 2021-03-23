@@ -32,6 +32,9 @@ function Nav() {
             <Link className="navLink" to="/nowPlaying">
               Now Playing Page
             </Link>
+            <Link className="navLink" to='/favorites'>
+              Favorites
+            </Link>
             <LogOutButton className="navLink" />
           </>
         )}
