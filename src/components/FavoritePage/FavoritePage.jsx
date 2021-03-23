@@ -7,37 +7,60 @@ import {useSelector} from 'react-redux';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
 function FavoritePage() {
-    const playlistFavs = useSelector((store) => store.playlist);
+    useEffect(() => {
+      
+        getPlaylist();
+        
+      }, []);
+      
+    
+    const [playlistFavs, setPlaylistFavs] = useState([]);
+
     let playlistUri = "https://open.spotify.com/embed/playlist/" + playlistFavs.playlist_id
     const deletePlaylist = (playlistID) => {
         axios
           .delete(`/spotify/${playlistID}`)
           .then((res) => {
-            console.log('successful Delete: ShelfPage', res);
-            loadShelf();
+            console.log('successful Delete:', res);
+            
           })
           .catch((error) => {
-            console.log('error on deleteBook: ShelfPage', error);
+            console.log('error on delete', error);
           });
-      };
+      }; 
+      function getPlaylist(){
+    
+      axios.get('/spotify')
+      .then(res => {
+        console.log('result playlist', res.data)
+        setPlaylistFavs(res.data)
+        console.log(playlistUri, "playlist URI")
+        console.log('playlist favs', playListFavs)
+      }).catch(err => {
+        console.log('err', err)
+      })
+    }
     
     return(
         <div>
-            {playlistFavs.map((playlist) => {
-          return (
-            <div key={playlistFavs.id}>
-              <h3>{playlistFavs.name}</h3>
-              <iframe src={playlistUri} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"> </iframe>
-              <button onClick={() => {
-                deletePlaylist(playlistFavs.id);
-              }}> delete</button>
-        </div>
-             );
-            })}
+            
            
 </div>
-    )
-}
-
-            
+        )
+}       
 export default FavoritePage;
+/* 
+<ul>
+        {playlistFavs.map((playlist) => {
+    
+      <li key={playlist.id}>
+        <h3>{playlist.name}</h3>
+        <iframe src={playlistUri} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"> </iframe>
+        <button onClick={() => {
+          deletePlaylist(playlistFavs.id);
+        }}> delete</button>
+        );</li>
+            })}    
+      
+            </ul> 
+            */
