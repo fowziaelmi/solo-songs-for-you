@@ -66,14 +66,15 @@ router.post('/', (req, res) => {
     });
 });
 router.delete('/:id', (req, res) => {
-  const playlistId = req.params.id;
-  const userId = req.user.id;
-  // access the "item" column to delete where user_id is req.params.id
 
-  const sqlQuery =
-    'DELETE FROM "playlist" USING "user" WHERE "playlist".id = $1 AND "user_id" = $2';
+  let playlistId = req.params.id;
+console.log(req.params)
+  // access the "item" column to delete where user_id is req.params.id
+console.log('playlist id', playlistId)
+  let sqlQuery =
+    `DELETE FROM "playlist" WHERE id=$1;`; 
   pool
-    .query(sqlQuery, [playlistId, userId])
+    .query(sqlQuery, [playlistId])
     .then((dbRes) => {
       console.log('DELETE - a response occurred', dbRes);
       res.sendStatus(200);
