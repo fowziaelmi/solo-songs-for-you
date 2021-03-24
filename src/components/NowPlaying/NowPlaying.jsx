@@ -12,10 +12,11 @@ function NowPlaying() {
   const [songUri, setSongUri] = useState('');
   const [name, setName] = useState('');
   const user = useSelector((store) => store.user);
+  const mood = useSelector((store) => store.mood);
   const dispatch = useDispatch();
   const history = useHistory();
 useEffect(() => {
-  getToken();
+  
   getPlaylist();
   
 }, []);
@@ -33,8 +34,46 @@ function getToken(){
   })
 }
   function getPlaylist(){
+    console.log('mood is', mood)
     getToken();
-  axios.get('/getBearer')
+    if (mood.mood == 'Energetic'){
+      
+      axios.get('/playlist/energetic')
+      .then(res => {
+        console.log('res for bearer', res.data)
+        console.log(res.data.playlists.items[0].id)
+        setSongUri(res.data.playlists.items[0].id)
+        
+      }).catch(err => {
+        console.log('err', err)
+      })
+    }else if (mood.mood == 'Sad')
+    {
+      axios.get('/playlist/sad')
+      .then(res => {
+        console.log('res for bearer', res.data)
+        console.log(res.data.playlists.items[0].id)
+        setSongUri(res.data.playlists.items[0].id)
+        
+      }).catch(err => {
+        console.log('err', err)
+      })
+    } else{
+      axios.get('/playlist/chill')
+    
+      .then(res => {
+        console.log('res for bearer', res.data)
+        console.log(res.data.playlists.items[0].id)
+        setSongUri(res.data.playlists.items[0].id)
+        
+      }).catch(err => {
+        console.log('err', err)
+      })
+    }
+  
+    }
+  
+   /* }
   .then(res => {
     console.log('res for bearer', res.data)
     console.log(res.data.playlists.items[0].id)
@@ -44,6 +83,21 @@ function getToken(){
     console.log('err', err)
   })
 }
+else{
+  axios.get('/playlist/chill')
+  .then(res => {
+    console.log('res for bearer', res.data)
+    console.log(res.data.playlists.items[0].id)
+    setSongUri(res.data.playlists.items[0].id)
+    
+  }).catch(err => {
+    console.log('err', err)
+  })
+}
+}
+*/
+    
+  
 const handleSubmit = () => {
   axios.post('/spotify', {playlist_id: songUri, name: name, user_id: user.id})
     .then((result) => {

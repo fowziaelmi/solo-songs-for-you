@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FavoritePage from '../FavoritePage/FavoritePage'
-
+import Edit from '../FavoritePage/Edit'
 import './App.css';
 import axios from 'axios';
 function App() {
@@ -84,6 +84,13 @@ function App() {
             path="/nowPlaying"
           >
             <NowPlaying />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/edit"
+          >
+            <Edit />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will

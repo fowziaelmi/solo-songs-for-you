@@ -104,4 +104,17 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+router.put('/:id', (req, res) => {
+  // Update this single student
+ 
+  const sqlText = `UPDATE "playlist" SET name = $1 WHERE id = $2`;
+  pool.query(sqlText, [req.body.github_name, nameUpdate])
+      .then((result) => {
+          res.sendStatus(200);
+      })
+      .catch((error) => {
+          console.log(`Error making database query ${sqlText}`, error);
+          res.sendStatus(500);
+      });
+});
 module.exports = router;
