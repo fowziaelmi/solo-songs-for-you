@@ -7,4 +7,4 @@ const playlistReducer = (state = [], action) => {
     }
   };
 
-  export default playlistReducer;
+  export default playlistReducer

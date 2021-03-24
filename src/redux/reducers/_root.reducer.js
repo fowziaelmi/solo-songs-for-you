@@ -4,6 +4,7 @@ import user from './user.reducer';
 import playlist from './playlistReducer'
 import rename from './renameReducer'
 import mood from './moodReducer'
+import playlistGet from './playlistGetReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
 playlist,
 rename,
-mood
+mood,
 });
 
 export default rootReducer;
