@@ -73,7 +73,7 @@ const handleFavs = () => {
 }
 
 //if (nowPlaying.length >= 0){
-console.log('now playing', nowPlaying[0].playlists.items[0].id)
+//console.log('now playing', nowPlaying[0].playlists.items[0].id)
 
 let songUri = nowPlaying[0].playlists.items[0].id
 

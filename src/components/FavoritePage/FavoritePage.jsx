@@ -11,6 +11,7 @@ function FavoritePage(props) {
    // const [playlistFavs, setPlaylistFavs] = useState([]);
     const history = useHistory();
     const favorites = useSelector((store) => store.favsReducer);
+    const user = useSelector((store) => store.user);
     useEffect(() => {
         
 dispatch({
@@ -25,12 +26,14 @@ dispatch({
    
        //console.log('favorites are:', [favorites[0]])
     
-    const deletePlaylist = (playlistID) => {
+    const deletePlaylist = (playlistId) => {
         axios
-          .delete(`/spotify/${playlistID}`)
+          .delete(`/spotify/${playlistId}`)
           .then((res) => {
             console.log('successful Delete:', res);
-            
+            dispatch({
+              type:'FETCH_FAV_PLAYLISTS'
+            })
           })
           .catch((error) => {
             console.log('error on delete', error);
@@ -64,21 +67,21 @@ console.log('get faves', getFavss(favoritess))
     
     console.log('playlistUri is', playlistUri)
    // console.log('new favorites', favoritess) */
-   let playlistUri = "https://open.spotify.com/embed/playlist/" 
-   console.log('favorites is this', favorites[0])
-   console.log('this is uri', [favorites].playlist_id)
+   //let playlistUri = "https://open.spotify.com/embed/playlist/" 
+   //console.log('favorites is this', favorites[0])
+   //console.log('this is uri', [favorites].playlist_id)
     return(
         <>
-        <div>
+        <div> <h2> Here are your favorite playlists</h2>
          <ul>
         {favorites.map((fav) => {
     return(
       <li key={fav.id}>
-        <h3>{fav.name}</h3>
         <iframe src = {`https://open.spotify.com/embed/playlist/${fav.playlist_id}`} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"> </iframe>
+        <p>{fav.name} playlist</p>
         <button onClick={handleClick}>rename</button>
         <button onClick={() => 
-          deletePlaylist(playlist.id)
+          deletePlaylist(fav.id)
 
         }> delete</button>
         );</li>
