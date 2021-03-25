@@ -154,7 +154,7 @@ axios({
   console.log(response.data, 'api response', response.data.access_token);
 token = response.data.access_token
 console.log('here',token)
-res.redirect('/getBearer')
+
   return token;
 }).catch(err =>{
   console.log('whoops', err)
@@ -162,13 +162,13 @@ res.redirect('/getBearer')
 
 })
 
-router.get('/', function(req, res) {
+router.get('/chill', function(req, res) {
 
   axios({
     method: 'get',
     //url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
    // url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
-    url: "https://api.spotify.com/v1/search?q=chill%2C%20pop&type=playlist&limit=1",
+    url: "https://api.spotify.com/v1/search?q=chill%2C%20pop&type=playlist&offset=5&limit=1",
    headers: {
       Authorization: 'Bearer ' + token
     }
@@ -182,7 +182,45 @@ router.get('/', function(req, res) {
   })
 });
 
+router.get('/sad', function(req, res) {
 
+  axios({
+    method: 'get',
+    //url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
+   // url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
+    url: "https://api.spotify.com/v1/search?q=sad%2C%20pop&type=playlist&limit=1&offset=5",
+   headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then((response) => {
+    res.send(response.data)
+    console.log('here is the response',response.data
+    )
+  }).catch(err => {
+    console.log('error on get', err)
+    console.log('token', token)
+  })
+});
+router.get('/energetic', function(req, res) {
+
+  axios({
+    method: 'get',
+    //url: `https://api.spotify.com/v1/tracks/0sf12qNH5qcw8qpgymFOqD?si=0021e8fe8fe44ba1`,
+   // url: `https://api.spotify.com/v1/browse/categories/party/playlists?offset=0&limit=1`,
+    url: "https://api.spotify.com/v1/search?q=workout%2C%20electronic&type=playlist&limit=1&offset=5",
+   headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }).then((response) => {
+    res.send(response.data)
+    console.log('here is the response',response.data
+    )
+  }).catch(err => {
+    console.log('error on get', err)
+    console.log('token', token)
+  })
+});
+//res.redirect('/getBearer')
 //const token = response.data.access_token
 //console.log(token, 'token')
 /*const token = response.data.access_token

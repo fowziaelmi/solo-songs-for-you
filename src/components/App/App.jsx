@@ -15,11 +15,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import NowPlaying from '../NowPlaying/NowPlaying';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import FavoritePage from '../FavoritePage/FavoritePage'
+import Edit from '../FavoritePage/Edit'
 import './App.css';
 import axios from 'axios';
 function App() {
@@ -28,10 +29,20 @@ function App() {
   useEffect(() => {
     
     dispatch({ type: 'FETCH_USER' })
-    
+    getToken();
   }, [dispatch]);
 
-
+  function getToken(){
+    axios.post('/token')
+    .then((res) => {
+      console.log('res',res);
+      console.log(res)
+     
+    })
+    .catch((err) => {
+      console.error('error on gettoken', err);
+    })
+  }
   
   
   
@@ -80,9 +91,16 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/nowPlaying"
           >
-            <InfoPage />
+            <NowPlaying />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/edit"
+          >
+            <Edit />
           </ProtectedRoute>
 
           {/* When a value is supplied for the authRedirect prop the user will
@@ -104,12 +122,21 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows RegisterPage at "/registration"
             exact
+            path="/favorites"
+            
+          >
+            <FavoritePage />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows RegisterPage at "/registration"
+            exact
             path="/registration"
             authRedirect="/user"
           >
             <RegisterPage />
           </ProtectedRoute>
-
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/user"
