@@ -1,47 +1,49 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-function getToken(){
-    axios.post('/token')
-    .then((res) => {
-      
-      console.log('res',res);
-      console.log(res)
-     
-    })
-    .catch((err) => {
-      console.error('error on gettoken', err);
-    })
-  }
-function* getPlaylists(action) {
+import {useSelector, useDispatch} from 'react-redux';
+
+
+function* getPlaylistE(action) {
     
     try {
-        getToken()
-      const playlistId = action.payload;
-      console.log('playlistID', playlistId)
-      if (mood.mood === 'Energetic'){
+      
       const playlist= yield axios.get('/playlist/energetic');
       console.log('got a response on playlist:', playlist.data);
-      yield put({ type: 'GET_PLAYLIST', payload: playlist.data[0] });
+      yield put({ type: 'GET_PLAYLIST', payload: playlist.data});
     } catch {
       console.log('error on playlist');
     }
-}else if(mood.mood === 'Sad'){
+}
+function* getPlaylistSad (action){
+    try{
+        
+//const playlistId = action.payload;
+     
+
     const playlist= yield axios.get('/playlist/sad');
     console.log('got a response on playlist:', playlist.data);
-    yield put({ type: 'GET_PLAYLIST', payload: playlist.data[0] });
-  } catch {
-    console.log('error on playlist');
+    yield put({ type: 'GET_PLAYLIST', payload: playlist.data });
+  } catch (err){
+    console.log('error on playlist', err);
   }
-}else{
+}
+function* getPlaylistChill(action) {
+    
+    try {
+      
+     
+
+    
     const playlist= yield axios.get('/playlist/chill');
     console.log('got a response on playlist:', playlist.data);
-    yield put({ type: 'GET_PLAYLIST', payload: playlist.data[0] });
-  } catch {
-    console.log('error on playlist');
+    yield put({ type: 'GET_PLAYLIST', payload: playlist.data });
+  } catch (err){
+    console.log('error on playlist', err);
   } 
 }
 function* playlistSaga() {
-    yield takeLatest('FETCH_PLAYLIST', getPlaylists);
-
+    yield takeLatest('FETCH_SAD_PLAYLIST', getPlaylistSad);
+    yield takeLatest('FETCH_CHILL_PLAYLIST', getPlaylistChill);
+    yield takeLatest('FETCH_ENERGETIC_PLAYLIST', getPlaylistE)
   }
 export default playlistSaga;

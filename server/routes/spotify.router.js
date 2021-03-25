@@ -98,6 +98,7 @@ router.get('/', (req, res) => {
     .query(queryText, [userId])
     .then((result) => {
       res.send(result.rows);
+      console.log('results from server', result)
     })
     .catch((error) => {
       console.log(error);

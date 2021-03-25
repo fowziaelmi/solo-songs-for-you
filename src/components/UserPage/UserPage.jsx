@@ -8,6 +8,7 @@ function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
 const [mood, setMood] = useState('');
+
   /*class AppComponent extends React.Component {
     mood = [ "Chill", "Energetic", "Sad"];
     state = {
@@ -24,11 +25,31 @@ const [mood, setMood] = useState('');
         payload: {
           mood: mood
         },
-      });
-      history.push('/nowPlaying');
+      })
+    
+      
+    
+    
+    
+    
+    if(mood==="Sad"){
+      
+    dispatch({ type: 'FETCH_SAD_PLAYLIST' });
+    }else if(mood == "Energetic"){
+   
+      dispatch({ type: 'FETCH_ENERGETIC_PLAYLIST' });
+    }else if (mood=== "Chill"){
+      
+      dispatch({ type: 'FETCH_CHILL_PLAYLIST' });
+    } 
+  
+      //history.push('/nowPlaying');
       };
-    
-    
+
+   const handleChange = (event) => {
+       event.preventDefault()
+history.push('/nowPlaying')
+      }
       /*
       <DropDownList
                     data={this.mood}
@@ -56,7 +77,8 @@ const [mood, setMood] = useState('');
 <option>Sad</option>
 
 </select>
-<button onClick={handleSubmit}> Go to Now Playing Page </button>
+<button onClick={handleSubmit}> Save mood </button>
+<button onClick={handleChange}> Go to Your new playlist </button>
 
      </form>
   
