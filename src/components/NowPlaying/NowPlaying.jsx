@@ -45,24 +45,33 @@ function NowPlaying() {
     })
   }
 const handleSubmit = () => {
-  axios.post('/spotify', {playlist_id: songUri, name: name, user_id: user.id})
-    .then((result) => {
-     console.log('favorite added:', {})
+ 
      dispatch({
-      type: 'SET_PLAYLIST',
+      type: 'ADD_FAV_PLAYLIST',
       payload: {
         playlist_id: songUri, name: name, user_id: user.id
       },
-    });
- 
-    history.push('/favorites');
     })
     
-    .catch((err) => {
-      console.log('Error in POST client', err);
-    });
+
+
+    
    
+    
+   
+   getFavs();
 };
+function getFavs(){
+  console.log('in get favs', getFavs)
+dispatch({
+  type: 'FETCH_FAV_PLAYLISTS'
+})
+}
+const handleFavs = () => {
+  console.log('in handle favs')
+  history.push('/favorites');
+}
+
 //if (nowPlaying.length >= 0){
 console.log('now playing', nowPlaying[0].playlists.items[0].id)
 
@@ -77,7 +86,8 @@ console.log('newUri', newUri)
       <p>Now Playing Page</p>
       <p><iframe src= {newUri} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></p>
     <input placeholder="Name this playlist" onChange={(event) => {setName(event.target.value)}}></input> 
-    <button onClick={handleSubmit}>Like and save</button></div>
+    <button onClick={handleSubmit}>Like</button>
+    <button onClick={handleFavs}> Save </button></div>
   );
 }
 

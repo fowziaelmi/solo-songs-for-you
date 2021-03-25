@@ -29,10 +29,20 @@ function App() {
   useEffect(() => {
     
     dispatch({ type: 'FETCH_USER' })
-    
+    getToken();
   }, [dispatch]);
 
-
+  function getToken(){
+    axios.post('/token')
+    .then((res) => {
+      console.log('res',res);
+      console.log(res)
+     
+    })
+    .catch((err) => {
+      console.error('error on gettoken', err);
+    })
+  }
   
   
   

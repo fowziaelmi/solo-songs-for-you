@@ -16,6 +16,8 @@ const [mood, setMood] = useState('');
     };
   }
   */
+
+  
   const history = useHistory();
   const dispatch = useDispatch();
     const handleSubmit = (event) => {

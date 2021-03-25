@@ -8,15 +8,22 @@ import { useHistory } from 'react-router-dom';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
 function FavoritePage(props) {
-    const [playlistFavs, setPlaylistFavs] = useState([]);
+   // const [playlistFavs, setPlaylistFavs] = useState([]);
     const history = useHistory();
+    const favorites = useSelector((store) => store.favsReducer);
     useEffect(() => {
-      getPlaylist();
+        
+dispatch({
+    type:'FETCH_FAV_PLAYLISTS'
+})
+  
         }, []);
         const dispatch = useDispatch(); 
        // const editName = useSelector((store) => store.rootReducer.rename);
+      // let favoritess = [favorites]
+       //console.log('the array', favoritess)
    
-
+       //console.log('favorites are:', [favorites[0]])
     
     const deletePlaylist = (playlistID) => {
         axios
@@ -29,19 +36,9 @@ function FavoritePage(props) {
             console.log('error on delete', error);
           });
       }; 
-      const getPlaylist = () =>{
-    
-      axios.get('/spotify')
-      .then(res => {
-        console.log('result playlist', res.data)
-        setPlaylistFavs(res.data)
-        console.log(playlistUri, "playlist URI")
-        //console.log('playlist favs', playListFavs)
-      }).catch(err => {
-        console.log('err', err)
-      })
-    
-    }
+      
+     
+      
     const handleClick =() =>{
        /* dispatch({
             type: 'SET_EDIT_NAME',
@@ -52,16 +49,33 @@ function FavoritePage(props) {
           history.push('/edit');
         }
     
-    console.log('playlist favs', playlistFavs)
-    let playlistUri = "https://open.spotify.com/embed/playlist/" + playlistFavs.playlist_id
+    //console.log('playlist favs', playlistFavs)
+/*let favoritess = []
+    function getFavss() {
+
+    for (let i = 0 ; i > favorites.length; i++){
+        let favoritess = favorites[i]
+        console.log('new favorites', favoritess)
+        return favoritess
+    }
+  }
+
+console.log('get faves', getFavss(favoritess))
+    
+    console.log('playlistUri is', playlistUri)
+   // console.log('new favorites', favoritess) */
+   let playlistUri = "https://open.spotify.com/embed/playlist/" 
+   console.log('favorites is this', favorites[0])
+   console.log('this is uri', [favorites].playlist_id)
     return(
+        <>
         <div>
          <ul>
-        {playlistFavs.map((playlist) => {
+        {favorites.map((fav) => {
     return(
-      <li key={playlist.id}>
-        <h3>{playlist.name}</h3>
-        <iframe src={playlistUri} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"> </iframe>
+      <li key={fav.id}>
+        <h3>{fav.name}</h3>
+        <iframe src = {`https://open.spotify.com/embed/playlist/${fav.playlist_id}`} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"> </iframe>
         <button onClick={handleClick}>rename</button>
         <button onClick={() => 
           deletePlaylist(playlist.id)
@@ -73,6 +87,8 @@ function FavoritePage(props) {
             </ul>    
            
 </div>
+
+        </>
         )
 }       
 export default FavoritePage;
